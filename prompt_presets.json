@@ -1,0 +1,410 @@
+[
+    {
+        "category": "风格与美术基调",
+        "category_en": "Artistic Styles",
+        "tier": 6,
+        "presets": [
+            {
+                "sub_category": "赛博朋克 (Cyberpunk)",
+                "prompt_value": "cyberpunk aesthetic, dystopian sci-fi future, neon lights, high-tech low-life, glowing holograms, rain-slicked wet streets, retrowave color palette, dense futuristic cityscape"
+            },
+            {
+                "sub_category": "虚幻引擎5写实渲染 (Unreal Engine 5)",
+                "prompt_value": "Unreal Engine 5 render, 8k resolution, hyper-realistic, ray tracing, lumen global illumination, highly detailed textures, digital masterpiece, 3D modeling"
+            },
+            {
+                "sub_category": "黑金奢华 (Black & Gold Luxury)",
+                "prompt_value": "black and gold color palette, luxurious aesthetic, highly reflective metallic textures, opulent atmosphere, deep contrast, elegant minimalism, premium commercial shot"
+            },
+            {
+                "sub_category": "暗黑奇幻 (Dark Fantasy)",
+                "prompt_value": "dark fantasy concept art, gothic architecture, gloomy and eerie atmosphere, Lovecraftian elements, highly detailed intricate armor, muted colors, dramatic stormy sky"
+            },
+            {
+                "sub_category": "韦斯·安德森风格 (Wes Anderson)",
+                "prompt_value": "Wes Anderson movie style, symmetrical composition, pastel color palette, flat lighting, quirky aesthetic, whimsical atmosphere, centered framing, high saturation"
+            },
+            {
+                "sub_category": "黏土定格动画 (Claymation)",
+                "prompt_value": "stop-motion claymation, Aardman Animations style, tactile clay texture, plasticine, fingerprints visible, studio miniature lighting, cute and quirky aesthetic"
+            },
+            {
+                "sub_category": "厚涂油画 (Impasto Oil Painting)",
+                "prompt_value": "heavy impasto oil painting, thick brushstrokes, Vincent van Gogh style, visible paint texture, expressive colors, palette knife technique, traditional art masterpiece"
+            },
+            {
+                "sub_category": "浮世绘风格 (Ukiyo-e)",
+                "prompt_value": "Ukiyo-e art style, traditional Japanese woodblock print, Katsushika Hokusai style, flat perspective, bold outlines, muted natural colors, paper texture, wave patterns"
+            },
+            {
+                "sub_category": "折纸艺术 (Origami Art)",
+                "prompt_value": "origami paper art style, folded paper texture, geometric shapes, low poly feel, clean studio lighting, pastel paper colors, DIY aesthetic"
+            },
+            {
+                "sub_category": "吉卜力动画风 (Ghibli Studio)",
+                "prompt_value": "Studio Ghibli style, traditional cel animation, lush green landscapes, soft watercolor textures, magical realism, nostalgic and warm atmosphere, hand-drawn anime look"
+            },
+            {
+                "sub_category": "皮克斯 3D (Pixar 3D)",
+                "prompt_value": "Pixar 3D animation style, cute and expressive characters, stylized 3D render, subsurface scattering, vibrant warm colors, smooth glossy textures, rendered in Octane"
+            },
+            {
+                "sub_category": "波普艺术 (Pop Art)",
+                "prompt_value": "Pop art style, Roy Lichtenstein style, comic book dots (Ben-Day dots), bold primary colors, heavy black outlines, retro 1960s aesthetic, graphic design"
+            },
+            {
+                "sub_category": "蒸汽朋克 (Steampunk)",
+                "prompt_value": "steampunk aesthetic, Victorian era sci-fi, brass and copper machinery, clockwork gears, steam-powered vehicles, sepia-toned atmosphere, intricate mechanical details"
+            },
+            {
+                "sub_category": "极简建筑设计 (Architectural Digest)",
+                "prompt_value": "architectural photography, minimalist design, clean lines, neutral tones, spacious interior, soft natural lighting, high-end furniture, modern aesthetic, magazine quality"
+            },
+            {
+                "sub_category": "中国水墨画 (Ink Wash Painting)",
+                "prompt_value": "traditional Chinese ink wash painting, shan shui style, black ink on white paper, artistic brush strokes, negative space, misty mountains, zen atmosphere, calligraphy elements"
+            },
+            {
+                "sub_category": "像素艺术 (Pixel Art)",
+                "prompt_value": "16-bit pixel art, retro video game style, SNES aesthetic, blocky textures, dithering, limited color palette, digital nostalgia"
+            },
+            {
+                "sub_category": "等轴微缩模型 (Isometric Low Poly)",
+                "prompt_value": "isometric view, 3D low poly art, orthographic projection, cute miniature world, clean edges, soft lighting, Sim City style, plastic toy texture"
+            }
+        ]
+    },
+    {
+        "category": "景别与构图",
+        "category_en": "Shot Types & Framing",
+        "tier": 2,
+        "presets": [
+            {
+                "sub_category": "极远景/史诗全景 (Extreme Wide Shot)",
+                "prompt_value": "extreme wide shot, massive scale, vast open landscape, tiny subject in the distance, establishing shot, expansive horizon, panoramic view, epic composition"
+            },
+            {
+                "sub_category": "全身镜头 (Full Body Shot)",
+                "prompt_value": "full body shot, character visible from head to toe, standing posture, clear foreground and background separation, environmental portrait"
+            },
+            {
+                "sub_category": "半身/腰部镜头 (Medium Shot)",
+                "prompt_value": "medium shot, waist-up framing, neutral camera angle, standard cinematic composition, clear subject visibility, focus on body language and attire"
+            },
+            {
+                "sub_category": "特写镜头 (Close-up)",
+                "prompt_value": "close-up shot, intense focus on face and expression, highly detailed facial features, blurred background, intimate depth of field, dramatic eye contact"
+            },
+            {
+                "sub_category": "极度特写 (Extreme Close-up)",
+                "prompt_value": "extreme close-up, focusing on eyes or lips, capturing skin texture and pores, macro details, intense emotion, filling the frame"
+            },
+            {
+                "sub_category": "微距摄影 (Macro Photography)",
+                "prompt_value": "macro photography, hyper-detailed texture, microscopic world, shallow depth of field, sharp focus on a single point, 1:1 magnification"
+            },
+            {
+                "sub_category": "三分构图 (Rule of Thirds)",
+                "prompt_value": "rule of thirds composition, subject placed on intersection points, visually dynamic, cinematic framing, unbalanced but harmonious, negative space on one side"
+            },
+            {
+                "sub_category": "留白构图 (Negative Space)",
+                "prompt_value": "negative space composition, vast empty space, isolated subject, minimalist framing, emotional emptiness, zen-like aesthetic, breathing room"
+            },
+            {
+                "sub_category": "引导线构图 (Leading Lines)",
+                "prompt_value": "leading lines composition, natural lines directing the eye to the subject, deep perspective, vanishing point, architectural depth, dynamic flow"
+            },
+            {
+                "sub_category": "中心对称构图 (Center Symmetry)",
+                "prompt_value": "perfectly symmetrical composition, central framing, balanced visual weight, geometric harmony, rigid aesthetic, Wes Anderson framing"
+            },
+            {
+                "sub_category": "倾斜构图 (Dutch Angle)",
+                "prompt_value": "Dutch angle shot, tilted camera, diagonal horizon, disorienting perspective, dynamic tension, dramatic framing, feeling of instability"
+            },
+            {
+                "sub_category": "画中画构图 (Frame within a Frame)",
+                "prompt_value": "frame within a frame composition, looking through a window or doorway, foreground framing the subject, architectural depth, voyeuristic perspective"
+            }
+        ]
+    },
+    {
+        "category": "镜头视角与焦距",
+        "category_en": "Camera Angles & Lenses",
+        "tier": 3,
+        "presets": [
+            {
+                "sub_category": "上帝/航拍视角 (Bird's-Eye View)",
+                "prompt_value": "bird's-eye view, top-down perspective, looking directly down, drone shot, flattening the landscape, geometric layout, symmetrical composition"
+            },
+            {
+                "sub_category": "虫视视角 (Worm's-Eye View)",
+                "prompt_value": "worm's-eye view, camera placed on the ground looking up, ground level perspective, grass and dirt in foreground, imposing subject"
+            },
+            {
+                "sub_category": "移轴微缩摄影 (Tilt-Shift)",
+                "prompt_value": "tilt-shift photography, miniature faking effect, blurred top and bottom, sharp center focus, toy-like appearance, high saturation, diorama look"
+            },
+            {
+                "sub_category": "超低角仰拍 (Hero Low Angle)",
+                "prompt_value": "extreme low angle shot, looking up at the subject, towering presence, dominant posture, dynamic sky background, heroic and epic perspective"
+            },
+            {
+                "sub_category": "倾斜构图 (Dutch Angle)",
+                "prompt_value": "Dutch angle shot, tilted camera, diagonal horizon, disorienting perspective, dynamic tension, dramatic framing, feeling of instability"
+            },
+            {
+                "sub_category": "超广角/鱼眼 (Ultra-Wide Fisheye)",
+                "prompt_value": "ultra-wide angle lens, 12mm focal length, fisheye effect, strong perspective distortion, curved horizon, exaggerated foreground, immersive depth"
+            },
+            {
+                "sub_category": "变形宽银幕镜头 (Anamorphic Lens)",
+                "prompt_value": "Panavision anamorphic lens, 2.39:1 aspect ratio, horizontal blue lens flare, oval bokeh, cinematic wide screen, optical distortions on edges"
+            },
+            {
+                "sub_category": "标准人像焦段 (85mm Portrait)",
+                "prompt_value": "85mm lens, portrait photography, flattering perspective, compression of features, creamy bokeh background, professional studio look"
+            },
+            {
+                "sub_category": "长焦空间压缩 (Telephoto Compression)",
+                "prompt_value": "telephoto lens, 200mm focal length, compressed background space, optical flattening, intense background blur, cinematic bokeh effect, subject isolation"
+            }
+        ]
+    },
+    {
+        "category": "光影与氛围",
+        "category_en": "Lighting & Atmosphere",
+        "tier": 5,
+        "presets": [
+            {
+                "sub_category": "丁达尔效应/体积光 (Volumetric God Rays)",
+                "prompt_value": "volumetric lighting, god rays piercing through dense fog, atmospheric scattering, hazy mist, dramatic light beams, high contrast illumination"
+            },
+            {
+                "sub_category": "蝴蝶光/美人光 (Butterfly Lighting)",
+                "prompt_value": "butterfly lighting, Paramount lighting, high angle front lighting, butterfly-shaped shadow under the nose, high-fashion beauty portrait, emphasizing cheekbones, glamorous studio setup"
+            },
+            {
+                "sub_category": "伦勃朗光 (Rembrandt Chiaroscuro)",
+                "prompt_value": "chiaroscuro lighting, Rembrandt lighting, dramatic high-contrast, single directional light source, distinct triangle of light on the cheek, moody and mysterious atmosphere"
+            },
+            {
+                "sub_category": "菲涅尔硬光 (Fresnel Spotlighting)",
+                "prompt_value": "Fresnel lighting, focused hard light source, distinct and sharp shadow edges, classic Hollywood cinema lighting, theatrical spot light effect"
+            },
+            {
+                "sub_category": "顶光/悬念光 (Overhead/Top Light)",
+                "prompt_value": "overhead lighting, top-down illumination, dramatic shadows under eyes and chin, brooding atmosphere, sense of mystery and weight, cinematic interrogation look"
+            },
+            {
+                "sub_category": "底光/惊悚光 (Underlighting/Bottom Light)",
+                "prompt_value": "underlighting, lit from below, inverted shadows on the face, sinister and eerie atmosphere, cinematic horror movie lighting, dramatic upward shadows"
+            },
+            {
+                "sub_category": "轮廓光/发丝光 (Rim & Hair Light)",
+                "prompt_value": "rim lighting, dedicated hair light, strong backlighting separating subject from the background, glowing outline, translucent hair edges, cinematic depth"
+            },
+            {
+                "sub_category": "眼神光特写 (Catchlights)",
+                "prompt_value": "bright catchlights in eyes, ring light reflection, sparkling eyes, lively expression, extreme close-up lighting, professional beauty shot"
+            },
+            {
+                "sub_category": "烟雾弥漫氛围 (Cinematic Smoke/Fog)",
+                "prompt_value": "cinematic smoke, dense fog, hazy atmosphere, mist, atmospheric perspective, diffused background, dramatic light beams piercing through smoke"
+            },
+            {
+                "sub_category": "悬浮尘埃 (Floating Dust Motes)",
+                "prompt_value": "floating dust motes illuminated by light, suspended particles in the air, magical and nostalgic atmosphere, extremely detailed air texture, cinematic mood"
+            },
+            {
+                "sub_category": "雨夜水汽 (Rainy Atmosphere)",
+                "prompt_value": "rainy atmosphere, heavy downpour, water droplets illuminated by street lights, wet slick surfaces, humidity, cinematic weather effects, reflections on ground"
+            },
+            {
+                "sub_category": "柔光箱影棚光 (Soft Studio Lighting)",
+                "prompt_value": "soft studio lighting, large softbox, diffused light, even illumination, minimal shadows, flattering for skin tones, commercial photography look"
+            },
+            {
+                "sub_category": "赛博双色霓虹光 (Neon Bi-Color)",
+                "prompt_value": "neon dual lighting, complementary color lighting, intense pink and cyan rim lights, dramatic colorful shadows, futuristic nightclub atmosphere"
+            },
+            {
+                "sub_category": "生物荧光 (Bioluminescence)",
+                "prompt_value": "bioluminescent lighting, glowing flora and fauna, dark night background, ethereal blue and purple glow, magical atmosphere, Avatar Pandora style"
+            },
+            {
+                "sub_category": "黄金时刻 (Golden Hour)",
+                "prompt_value": "golden hour lighting, warm sunset glow, soft long shadows, backlighting, lens flare, magical and romantic atmosphere, sun-kissed textures"
+            }
+        ]
+    },
+    {
+        "category": "电影调色与色彩风格",
+        "category_en": "Color Grading & Tones",
+        "tier": 6,
+        "presets": [
+            {
+                "sub_category": "青橙色调 (Teal & Orange)",
+                "prompt_value": "teal and orange color grading, cinematic movie look, complementary colors, warm skin tones, cool shadows, high contrast, blockbuster aesthetic"
+            },
+            {
+                "sub_category": "罪恶之城风 (Sin City Splash)",
+                "prompt_value": "black and white high contrast, single color splash, red color isolation, graphic novel style, film noir, gritty urban aesthetic, Frank Miller style"
+            },
+            {
+                "sub_category": "黑白摄影 (Black & White Noir)",
+                "prompt_value": "black and white photography, film noir style, high contrast monochrome, dramatic shadows, timeless aesthetic, expressive textures, Ansel Adams style"
+            },
+            {
+                "sub_category": "低饱和/莫兰迪色 (Muted/Desaturated)",
+                "prompt_value": "muted color palette, desaturated tones, low vibrancy, Morandi colors, melancholic and gritty atmosphere, realistic war movie look"
+            },
+            {
+                "sub_category": "复古暖色 (Vintage Sepia)",
+                "prompt_value": "sepia tone, vintage photograph, warm brown hues, aged paper look, nostalgia, old western movie style, faded colors"
+            },
+            {
+                "sub_category": "糖果粉彩 (Pastel Dream)",
+                "prompt_value": "pastel color palette, soft pinks and blues, dreamy and airy atmosphere, low contrast, bright and cheerful, kawaii aesthetic, candy-colored"
+            }
+        ]
+    },
+    {
+        "category": "器材与介质质感",
+        "category_en": "Equipment & Film Grain",
+        "tier": 7,
+        "presets": [
+            {
+                "sub_category": "好莱坞大片质感 (ARRI Alexa Cinema)",
+                "prompt_value": "shot on ARRI Alexa 65, Panavision anamorphic lenses, cinematic color grading, high dynamic range, 35mm film grain, pristine Hollywood image quality"
+            },
+            {
+                "sub_category": "柯达复古胶片 (Kodak Vintage Film)",
+                "prompt_value": "Kodak Portra 400 film stock, organic film grain, warm nostalgic tones, halation effect, slight chromatic aberration, vintage analog aesthetic"
+            },
+            {
+                "sub_category": "8毫米胶片 (Super 8mm)",
+                "prompt_value": "Super 8mm film, heavy film grain, flickering, scratches and dust, jittery frame, home movie aesthetic, nostalgic 1970s vibe"
+            },
+            {
+                "sub_category": "宝丽来拍立得 (Polaroid Instant)",
+                "prompt_value": "Polaroid instant photo look, faded vintage colors, overexposed flash foreground, dark vignette borders, chemical emulsion textures, retro 90s vibe"
+            },
+            {
+                "sub_category": "运动相机 (GoPro Wide)",
+                "prompt_value": "shot on GoPro, ultra-wide fish-eye lens, deep depth of field, sharp focus everywhere, action sports aesthetic, raw footage look"
+            },
+            {
+                "sub_category": "热成像 (Thermal Imaging)",
+                "prompt_value": "thermal imaging camera style, heat map visualization, infrared spectrum, predator vision, red and yellow heat signatures, blue cool zones"
+            },
+            {
+                "sub_category": "夜视仪 (Night Vision)",
+                "prompt_value": "night vision grainy green screen, military tactical footage, low light amplification, glowing eyes effect, digital noise overlay"
+            },
+            {
+                "sub_category": "粗糙VHS录像带 (VHS Tape Glitch)",
+                "prompt_value": "VHS tape aesthetic, 90s camcorder quality, CRT screen scanlines, color bleeding, heavy video noise, chromatic aberration, glitchy artifacts, lo-fi aesthetic"
+            },
+            {
+                "sub_category": "监控摄像头 (CCTV Footage)",
+                "prompt_value": "CCTV security camera footage, low resolution, grainy black and white, timestamp in corner, high angle corner view, fish-eye distortion, raw unedited look"
+            }
+        ]
+    },
+    {
+        "category": "特效与后处理",
+        "category_en": "Special Effects & Post-Processing",
+        "tier": 7,
+        "presets": [
+            {
+                "sub_category": "多重曝光 (Double Exposure)",
+                "prompt_value": "double exposure photography, merging two images, overlay effect, surreal dreamscape, artistic blending, intricate silhouette containing a landscape"
+            },
+            {
+                "sub_category": "动态模糊/拖影 (Motion Blur)",
+                "prompt_value": "heavy motion blur, slow shutter speed, dynamic movement trails, ghosting effect, fast-paced action, sense of speed and chaos"
+            },
+            {
+                "sub_category": "棱镜折射光斑 (Prism Effect)",
+                "prompt_value": "prism light leak, rainbow refraction, dreamlike lens flare, kaleidoscope effect, ethereal glow, foreground light distortion"
+            },
+            {
+                "sub_category": "赛博故障风 (Glitch Art)",
+                "prompt_value": "glitch art, digital datamosh, RGB shift, corrupted pixel data, CRT scanlines, cyberpunk data stream, chaotic digital overlay"
+            },
+            {
+                "sub_category": "电影黑边 (Cinematic Letterbox)",
+                "prompt_value": "cinematic letterbox, 2.39:1 aspect ratio, black bars on top and bottom, film subtitles at the bottom, movie still, wide aspect ratio"
+            }
+        ]
+    },
+    {
+        "category": "运镜动作 (视频)",
+        "category_en": "Camera Movements",
+        "tier": 1,
+        "presets": [
+            {
+                "sub_category": "向前推进 (Dolly In/Push-in)",
+                "prompt_value": "camera dolly in, smooth push-in shot, moving closer to the subject, continuous forward motion, increasing emotional intensity, cinematic glide"
+            },
+            {
+                "sub_category": "向后拉远 (Dolly Out/Pull-back)",
+                "prompt_value": "camera dolly out, smooth pull-back shot, moving away from the subject, revealing the environment, creating a sense of loneliness and isolation"
+            },
+            {
+                "sub_category": "向左摇摄 (Pan Left)",
+                "prompt_value": "camera panning left, smooth horizontal pan to the left, revealing the scene from right to left, sweeping motion, cinematic landscape reveal"
+            },
+            {
+                "sub_category": "向右摇摄 (Pan Right)",
+                "prompt_value": "camera panning right, smooth horizontal pan to the right, revealing the scene from left to right, sweeping motion, cinematic landscape reveal"
+            },
+            {
+                "sub_category": "向上摇摄 (Tilt Up)",
+                "prompt_value": "camera tilting up, smooth vertical tilt from bottom to top, revealing the height and majesty of the subject, grand reveal"
+            },
+            {
+                "sub_category": "向下摇摄 (Tilt Down)",
+                "prompt_value": "camera tilting down, smooth vertical tilt from top to bottom, revealing the ground or subject from above, downward motion"
+            },
+            {
+                "sub_category": "背部跟拍 (Back Tracking Shot)",
+                "prompt_value": "tracking shot, following the subject from behind, over-the-shoulder perspective, smooth gimbal stabilization, dynamic environment passing by"
+            },
+            {
+                "sub_category": "水平摇摄 (Pan Shot)",
+                "prompt_value": "panning shot, smooth horizontal camera movement, sweeping across the scene, revealing the environment, steady speed"
+            },
+            {
+                "sub_category": "跟随镜头 (Tracking Shot)",
+                "prompt_value": "tracking shot, following the subject from behind, over-the-shoulder perspective, smooth gimbal stabilization, dynamic environment passing by"
+            },
+            {
+                "sub_category": "侧向平移/跟拍 (Truck Shot/Side Track)",
+                "prompt_value": "truck shot, side tracking shot, camera moving parallel to the subject, side-scrolling perspective, dynamic background motion blur, keeping pace with the subject"
+            },
+            {
+                "sub_category": "环绕运镜 (360 Orbit Shot)",
+                "prompt_value": "dynamic orbit camera movement, 360-degree arc shot around the subject, smooth continuous tracking, parallax background shift, subject remains centered"
+            },
+            {
+                "sub_category": "摇臂上升 (Crane Shot Up)",
+                "prompt_value": "crane shot, camera rising up vertically, expanding the view, transitioning from ground level to bird's eye view, epic reveal"
+            },
+            {
+                "sub_category": "穿越机极速飞行 (FPV Drone Rush)",
+                "prompt_value": "FPV drone footage, high-speed flying through tight spaces, extreme banking angles, dynamic motion blur, acrobatic camera rolls, adrenaline-filled motion"
+            },
+            {
+                "sub_category": "希区柯克变焦 (Dolly Zoom)",
+                "prompt_value": "dolly zoom effect, vertigo effect, dolly in while zooming out, foreground remains static while background distorts and compresses, eerie spatial warp"
+            },
+            {
+                "sub_category": "手持摇晃感 (Handheld Shake)",
+                "prompt_value": "handheld camera movement, slight camera shake, raw and documentary style, organic motion, sense of urgency and realism, Cloverfield style"
+            }
+        ]
+    }
+]
