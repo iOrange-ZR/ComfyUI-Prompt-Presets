@@ -34,7 +34,7 @@
 
 ```bash
 cd ComfyUI/custom_nodes/
-git clone https://github.com/your-username/ComfyUI-Prompt-Presets.git
+git clone https://github.com/iOrange-ZR/ComfyUI-Prompt-Presets.git
 ```
 
 ### 方法二：复制文件夹
