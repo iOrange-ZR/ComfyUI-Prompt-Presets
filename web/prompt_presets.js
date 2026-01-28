@@ -126,13 +126,28 @@ function getAllPromptWidgets(node) {
 let presetTierCache = null;
 
 // 从加载的预设数据构建 tier 缓存
+// 支持新的三层结构 (Category -> Group -> Preset) 和旧的两层结构
 function buildPresetTierCache(presetsData) {
     const cache = {};
     if (!Array.isArray(presetsData)) return cache;
 
     for (const category of presetsData) {
-        const tier = category.tier || 4; // 默认 Tier 4
-        if (Array.isArray(category.presets)) {
+        // 新结构：Category 包含 groups 数组
+        if (Array.isArray(category.groups)) {
+            for (const group of category.groups) {
+                const tier = group.tier || 4; // 从 group 获取 tier
+                if (Array.isArray(group.presets)) {
+                    for (const preset of group.presets) {
+                        if (preset.prompt_value) {
+                            cache[preset.prompt_value] = tier;
+                        }
+                    }
+                }
+            }
+        }
+        // 旧结构：Category 直接包含 presets 数组（向后兼容）
+        else if (Array.isArray(category.presets)) {
+            const tier = category.tier || 4;
             for (const preset of category.presets) {
                 if (preset.prompt_value) {
                     cache[preset.prompt_value] = tier;
@@ -297,17 +312,36 @@ class PromptPresetsManager {
     }
 
     // 获取所有预设值的列表（用于智能匹配）
+    // 支持新的三层结构和旧的两层结构
     getAllPresetValues() {
         if (!this.presets) return [];
         const values = [];
         this.presets.forEach(cat => {
-            cat.presets.forEach(p => {
-                values.push({
-                    category: cat.category,
-                    name: p.sub_category,
-                    value: p.prompt_value
+            // 新结构：Category 包含 groups 数组
+            if (Array.isArray(cat.groups)) {
+                cat.groups.forEach(group => {
+                    if (Array.isArray(group.presets)) {
+                        group.presets.forEach(p => {
+                            values.push({
+                                category: cat.category,
+                                group: group.name,
+                                name: p.sub_category,
+                                value: p.prompt_value
+                            });
+                        });
+                    }
                 });
-            });
+            }
+            // 旧结构：Category 直接包含 presets
+            else if (Array.isArray(cat.presets)) {
+                cat.presets.forEach(p => {
+                    values.push({
+                        category: cat.category,
+                        name: p.sub_category,
+                        value: p.prompt_value
+                    });
+                });
+            }
         });
         return values;
     }
@@ -413,10 +447,13 @@ class PromptPresetsUI {
         this.floatBtn = null;
         this.mainMenu = null;
         this.subMenu = null;
+        this.thirdLevelMenu = null;
         this.managePanel = null;
         this.previewPopup = null;
         this.isMenuOpen = false;
         this.hideTimeout = null;
+        // 菜单展开方向: 'left' 或 'right'，由主菜单位置决定，后续菜单保持一致
+        this.menuExpandDirection = 'left';
     }
 
     createFloatingButton() {
@@ -512,6 +549,36 @@ class PromptPresetsUI {
             floatBtn.style.boxShadow = "0 4px 8px rgba(0,0,0,0.4)";
             this.scheduleHideMenu(e);
         };
+
+        // 窗口大小改变时，确保按钮始终在可视区域内
+        const ensureButtonVisible = () => {
+            const currentRight = parseInt(floatBtn.style.right) || 20;
+            const currentBottom = parseInt(floatBtn.style.bottom) || 80;
+
+            // 计算按钮的实际位置
+            const btnWidth = 44;
+            const btnHeight = 44;
+            const maxRight = window.innerWidth - btnWidth - 5;
+            const maxBottom = window.innerHeight - btnHeight - 5;
+
+            // 限制位置在可视区域内
+            const newRight = Math.max(5, Math.min(maxRight, currentRight));
+            const newBottom = Math.max(5, Math.min(maxBottom, currentBottom));
+
+            floatBtn.style.right = newRight + "px";
+            floatBtn.style.bottom = newBottom + "px";
+
+            // 保存新位置
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify({ right: newRight, bottom: newBottom }));
+            } catch (e) { }
+        };
+
+        // 监听窗口大小改变
+        window.addEventListener("resize", ensureButtonVisible);
+
+        // 初始化时也调用一次，确保加载后位置正确
+        setTimeout(ensureButtonVisible, 100);
 
         this.floatBtn = floatBtn;
         return floatBtn;
@@ -611,12 +678,33 @@ class PromptPresetsUI {
 
         document.body.appendChild(menu);
 
-        // 定位
+        // 定位：智能判断展开方向
         const btnRect = this.floatBtn.getBoundingClientRect();
-        let x = btnRect.left - 210;
-        let y = btnRect.top;
+        const menuWidth = 210;
+        const subMenuTotalWidth = menuWidth + 290 + 330; // 三级菜单所需总宽度
 
-        if (x < 10) x = btnRect.right + 10;
+        // 计算左右两侧可用空间
+        const leftSpace = btnRect.left;
+        const rightSpace = window.innerWidth - btnRect.right;
+
+        // 决定展开方向：优先选择空间更大的一侧
+        // 如果左侧空间足够放下三级菜单，则向左展开；否则向右
+        if (leftSpace >= subMenuTotalWidth || leftSpace > rightSpace) {
+            this.menuExpandDirection = 'left';
+        } else {
+            this.menuExpandDirection = 'right';
+        }
+
+        let x, y;
+        if (this.menuExpandDirection === 'left') {
+            x = btnRect.left - menuWidth;
+            if (x < 10) x = btnRect.right + 10; // 保底：左侧不够就放右侧
+        } else {
+            x = btnRect.right + 10;
+            if (x + menuWidth > window.innerWidth - 10) x = btnRect.left - menuWidth; // 保底
+        }
+
+        y = btnRect.top;
         if (y + 350 > window.innerHeight) y = window.innerHeight - 370;
 
         menu.style.left = x + "px";
@@ -670,7 +758,7 @@ class PromptPresetsUI {
             borderRadius: "10px",
             boxShadow: "0 8px 24px rgba(0,0,0,0.5)",
             zIndex: "99996",
-            minWidth: "320px",
+            minWidth: "280px",
             maxHeight: "400px",
             overflowY: "auto",
             padding: "8px 0",
@@ -679,61 +767,56 @@ class PromptPresetsUI {
             transition: "opacity 0.15s, transform 0.15s"
         });
 
-        category.presets.forEach(preset => {
-            const item = document.createElement("div");
-            Object.assign(item.style, {
-                padding: "10px 16px",
-                cursor: "pointer",
-                fontSize: "13px",
-                color: "#ccc",
-                borderLeft: "3px solid transparent",
-                transition: "all 0.12s",
-                display: "flex",
-                alignItems: "center",
-                gap: "8px"
+        // 新结构：Category 包含 groups 数组 (三层级联)
+        if (Array.isArray(category.groups)) {
+            category.groups.forEach(group => {
+                const item = document.createElement("div");
+                Object.assign(item.style, {
+                    padding: "10px 16px",
+                    cursor: "pointer",
+                    fontSize: "13px",
+                    color: "#ccc",
+                    borderLeft: "3px solid transparent",
+                    transition: "all 0.12s",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between"
+                });
+
+                const text = document.createElement("span");
+                text.textContent = group.name;
+                item.appendChild(text);
+
+                const arrow = document.createElement("span");
+                arrow.textContent = "▶";
+                arrow.style.fontSize = "10px";
+                arrow.style.opacity = "0.6";
+                item.appendChild(arrow);
+
+                item.onmouseenter = () => {
+                    item.style.background = "linear-gradient(90deg, #3a6ea5, transparent)";
+                    item.style.color = "#fff";
+                    item.style.borderLeftColor = "#5ab0ff";
+                    item.style.paddingLeft = "20px";
+                    this.showThirdLevelMenu(group, item, submenu);
+                };
+                item.onmouseleave = () => {
+                    item.style.background = "transparent";
+                    item.style.color = "#ccc";
+                    item.style.borderLeftColor = "transparent";
+                    item.style.paddingLeft = "16px";
+                };
+
+                submenu.appendChild(item);
             });
-
-            // 如果有预览，添加小图标
-            if (preset.preview) {
-                const icon = document.createElement("span");
-                icon.textContent = "🖼️";
-                icon.style.fontSize = "10px";
-                icon.style.opacity = "0.6";
-                item.appendChild(icon);
-            }
-
-            const text = document.createElement("span");
-            text.textContent = preset.sub_category;
-            item.appendChild(text);
-
-            item.onmouseenter = (e) => {
-                item.style.background = "linear-gradient(90deg, #3a6ea5, transparent)";
-                item.style.color = "#fff";
-                item.style.borderLeftColor = "#5ab0ff";
-                item.style.paddingLeft = "20px";
-
-                // 显示预览
-                if (preset.preview) {
-                    this.showPreviewPopup(preset.preview, e.clientX, e.clientY);
-                }
-            };
-            item.onmouseleave = () => {
-                item.style.background = "transparent";
-                item.style.color = "#ccc";
-                item.style.borderLeftColor = "transparent";
-                item.style.paddingLeft = "16px";
-
-                // 隐藏预览
-                this.hidePreviewPopup();
-            };
-
-            item.onclick = () => {
-                this.appendToPrompt(preset.prompt_value);
-                this.hideAllMenus();
-            };
-
-            submenu.appendChild(item);
-        });
+        }
+        // 旧结构：Category 直接包含 presets（向后兼容）
+        else if (Array.isArray(category.presets)) {
+            category.presets.forEach(preset => {
+                const item = this.createPresetItem(preset);
+                submenu.appendChild(item);
+            });
+        }
 
         submenu.onmouseenter = () => this.clearHideTimeout();
         submenu.onmouseleave = (e) => this.scheduleHideMenu(e);
@@ -742,10 +825,17 @@ class PromptPresetsUI {
 
         const menuRect = this.mainMenu.getBoundingClientRect();
         const itemRect = parentItem.getBoundingClientRect();
-        let x = menuRect.left - 330;
-        let y = itemRect.top - 8;
+        const submenuWidth = 290;
 
-        if (x < 10) x = menuRect.right + 10;
+        let x, y;
+        // 根据已确定的展开方向定位
+        if (this.menuExpandDirection === 'left') {
+            x = menuRect.left - submenuWidth - 5;
+        } else {
+            x = menuRect.right + 5;
+        }
+
+        y = itemRect.top - 8;
         if (y + 400 > window.innerHeight) y = window.innerHeight - 410;
         if (y < 10) y = 10;
 
@@ -758,6 +848,122 @@ class PromptPresetsUI {
         });
 
         this.subMenu = submenu;
+    }
+
+    // 创建预设项（用于二级或三级菜单）
+    createPresetItem(preset) {
+        const item = document.createElement("div");
+        Object.assign(item.style, {
+            padding: "10px 16px",
+            cursor: "pointer",
+            fontSize: "13px",
+            color: "#ccc",
+            borderLeft: "3px solid transparent",
+            transition: "all 0.12s",
+            display: "flex",
+            alignItems: "center",
+            gap: "8px"
+        });
+
+        const text = document.createElement("span");
+        text.textContent = preset.sub_category;
+        item.appendChild(text);
+
+        item.onmouseenter = (e) => {
+            item.style.background = "linear-gradient(90deg, #3a6ea5, transparent)";
+            item.style.color = "#fff";
+            item.style.borderLeftColor = "#5ab0ff";
+            item.style.paddingLeft = "20px";
+
+            // 显示预览
+            if (preset.image) {
+                this.showPreviewPopup(preset.image, e.clientX, e.clientY);
+            }
+        };
+        item.onmouseleave = () => {
+            item.style.background = "transparent";
+            item.style.color = "#ccc";
+            item.style.borderLeftColor = "transparent";
+            item.style.paddingLeft = "16px";
+
+            // 隐藏预览
+            this.hidePreviewPopup();
+        };
+
+        item.onclick = () => {
+            this.appendToPrompt(preset.prompt_value);
+            this.hideAllMenus();
+        };
+
+        return item;
+    }
+
+    // 三级菜单：显示具体预设列表
+    showThirdLevelMenu(group, parentItem, parentMenu) {
+        this.hideThirdLevelMenu();
+
+        const thirdMenu = document.createElement("div");
+        Object.assign(thirdMenu.style, {
+            position: "fixed",
+            background: "linear-gradient(180deg, #3c3c3c, #323232)",
+            border: "1px solid #555",
+            borderRadius: "10px",
+            boxShadow: "0 8px 24px rgba(0,0,0,0.5)",
+            zIndex: "99995",
+            minWidth: "320px",
+            maxHeight: "400px",
+            overflowY: "auto",
+            padding: "8px 0",
+            opacity: "0",
+            transform: "translateX(10px)",
+            transition: "opacity 0.15s, transform 0.15s"
+        });
+
+        if (Array.isArray(group.presets)) {
+            group.presets.forEach(preset => {
+                const item = this.createPresetItem(preset);
+                thirdMenu.appendChild(item);
+            });
+        }
+
+        thirdMenu.onmouseenter = () => this.clearHideTimeout();
+        thirdMenu.onmouseleave = (e) => this.scheduleHideMenu(e);
+
+        document.body.appendChild(thirdMenu);
+
+        const menuRect = parentMenu.getBoundingClientRect();
+        const itemRect = parentItem.getBoundingClientRect();
+        const thirdMenuWidth = 330;
+
+        let x, y;
+        // 根据已确定的展开方向定位
+        if (this.menuExpandDirection === 'left') {
+            x = menuRect.left - thirdMenuWidth - 5;
+        } else {
+            x = menuRect.right + 5;
+        }
+
+        y = itemRect.top - 8;
+        if (y + 400 > window.innerHeight) y = window.innerHeight - 410;
+        if (y < 10) y = 10;
+
+        thirdMenu.style.left = x + "px";
+        thirdMenu.style.top = y + "px";
+
+        requestAnimationFrame(() => {
+            thirdMenu.style.opacity = "1";
+            thirdMenu.style.transform = "translateX(0)";
+        });
+
+        this.thirdLevelMenu = thirdMenu;
+    }
+
+    // 隐藏三级菜单
+    hideThirdLevelMenu() {
+        if (this.thirdLevelMenu) {
+            this.thirdLevelMenu.remove();
+            this.thirdLevelMenu = null;
+        }
     }
 
     // ========================================
@@ -2292,6 +2498,7 @@ class PromptPresetsUI {
     }
 
     hideSubMenu() {
+        this.hideThirdLevelMenu();
         if (this.subMenu) {
             this.subMenu.remove();
             this.subMenu = null;
@@ -2363,17 +2570,26 @@ class PromptPresetsUI {
         const popupWidth = 350;
         const popupHeight = 300;
 
-        // 获取子菜单位置
+        // 获取三级菜单位置（预览显示在三级菜单旁边）
         let x, y;
-        if (this.subMenu) {
-            const subMenuRect = this.subMenu.getBoundingClientRect();
-            // 放在子菜单左侧
-            x = subMenuRect.left - popupWidth - 15;
+        if (this.thirdLevelMenu) {
+            const menuRect = this.thirdLevelMenu.getBoundingClientRect();
+            // 根据菜单展开方向决定预览位置
+            if (this.menuExpandDirection === 'left') {
+                // 菜单向左展开，预览放在菜单左侧
+                x = menuRect.left - popupWidth - 10;
+            } else {
+                // 菜单向右展开，预览放在菜单右侧
+                x = menuRect.right + 10;
+            }
             y = mouseY - 100;
 
-            // 如果左侧空间不足，放在右侧
+            // 如果空间不足，切换到另一侧
             if (x < 10) {
-                x = subMenuRect.right + 15;
+                x = menuRect.right + 10;
+            }
+            if (x + popupWidth > window.innerWidth - 10) {
+                x = menuRect.left - popupWidth - 10;
             }
         } else {
             x = mouseX - popupWidth - 20;
@@ -2411,6 +2627,7 @@ class PromptPresetsUI {
 
     hideAllMenus() {
         this.clearHideTimeout();
+        this.hideThirdLevelMenu();
         this.hideSubMenu();
         this.hidePreviewPopup();
         if (this.mainMenu) {

@@ -29,15 +29,25 @@ async def get_prompt_presets(request):
         print(f"[PromptPresets] Error loading presets: {e}")
         return web.json_response([])
 
-# 预览文件服务 API
-@server.PromptServer.instance.routes.get("/prompt_presets/preview/{filename}")
+# 预览文件服务 API - 使用正则匹配完整文件名（包括扩展名）
+@server.PromptServer.instance.routes.get("/prompt_presets/preview/{filename:.+}")
 async def get_preview_file(request):
-    filename = request.match_info.get('filename', '')
+    from urllib.parse import unquote
+    
+    raw_filename = request.match_info.get('filename', '')
+    # URL 解码文件名（处理空格等特殊字符）
+    filename = unquote(raw_filename)
+    
+    # 调试日志
+    print(f"[PromptPresets] Preview request: raw='{raw_filename}', decoded='{filename}'")
+    
     # 安全检查：防止路径遍历
     if '..' in filename or '/' in filename or '\\' in filename:
         return web.Response(status=400, text="Invalid filename")
     
     preview_path = os.path.join(CURRENT_DIR, "previews", filename)
+    print(f"[PromptPresets] Looking for file at: {preview_path}")
+    print(f"[PromptPresets] File exists: {os.path.exists(preview_path)}")
     
     if not os.path.exists(preview_path):
         return web.Response(status=404, text="Preview not found")
